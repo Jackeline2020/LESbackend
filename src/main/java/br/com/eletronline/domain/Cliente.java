@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @lombok.AllArgsConstructor
@@ -24,5 +25,9 @@ public class Cliente extends Pessoa implements Serializable {
 
   private TipoCliente tipoCliente;
 
+  @OneToMany(mappedBy = "cliente")
+  private List<Pedido> pedidos;
+
+  @OneToMany(mappedBy = "cliente")
   private List<Endereco> enderecos;
 }

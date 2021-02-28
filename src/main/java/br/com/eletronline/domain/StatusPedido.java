@@ -1,0 +1,18 @@
+package br.com.eletronline.domain;
+
+public enum StatusPedido {
+  PEDIDO_REALIZADO("PEDIDO REALIZADO"), 
+  PAGAMENTO_CONFIRMADO("PAGAMENTO CONFIRMADO"),
+  PEDIDO_SEPARACAO("PEDIDO EM SEPARAÇÃO"),
+  PEDIDO_SEPARADO("PEDIDO SEPARADO"),
+  COLETADO_TRANSPORTADORA("COLETADO PELA TRANSPORTADORA"),
+  EM_TRANSITO("EM TRÂNSITO"),
+  SAIU_ENTREGA("SAIU PARA ENTREGA"),
+  PRODUTO_ENTREGUE("PRODUTO ENTREGUE");
+
+  public String statusPedido;
+
+  StatusPedido(final String status) {
+    statusPedido = status;
+  }
+}

@@ -3,6 +3,8 @@ package br.com.eletronline.domain;
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @lombok.AllArgsConstructor
@@ -28,4 +30,8 @@ public class Endereco extends Domain implements Serializable {
   private String complemento;
 
   private Cidade cidade;
+
+  @ManyToOne
+  @JoinColumn(name = "CLIENTE_ID", referencedColumnName = "ID")
+  private Cliente cliente;
 }

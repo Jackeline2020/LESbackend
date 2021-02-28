@@ -1,8 +1,10 @@
 package br.com.eletronline.domain;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @lombok.AllArgsConstructor
@@ -20,4 +22,7 @@ public class Estado extends Domain implements Serializable {
   private Long id;
 
   private String descricao;
+
+  @OneToMany(mappedBy = "estado")
+  private List<Cidade> cidades;
 }

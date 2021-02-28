@@ -1,6 +1,7 @@
 package br.com.eletronline.domain;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -13,17 +14,21 @@ import javax.persistence.Table;
 @lombok.Setter
 @lombok.Builder
 @Entity
-@Table(name = "CIDADE")
-public class Cidade extends Domain implements Serializable {
+@Table(name = "PRODUTO")
+public class Produto extends Domain implements Serializable {
 
-  private static final long serialVersionUID = -3259270784505968534L;
+  private static final long serialVersionUID = -4443984822943051165L;
 
   @Id
   private Long id;
 
   private String descricao;
 
+  private BigDecimal valor;
+
+  private EspecificacaoProduto especificacao;
+
   @ManyToOne
-  @JoinColumn(name = "MOTORISTA_ID", referencedColumnName = "ID")
-  private Estado estado;
+  @JoinColumn(name = "PEDIDO_ID", referencedColumnName = "ID")
+  private Pedido pedido;
 }
