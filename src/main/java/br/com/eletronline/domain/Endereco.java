@@ -21,17 +21,21 @@ public class Endereco extends Domain implements Serializable {
   @Id
   private Long id;
 
+  private String cep;
+
   private String logradouro;
 
   private String numero;
 
-  private String cep;
+  private String bairro;
 
   private String complemento;
 
-  private Cidade cidade;
+  private Cidade cidade; // TODO finalizar relacionamento
 
   @ManyToOne
   @JoinColumn(name = "CLIENTE_ID", referencedColumnName = "ID")
   private Cliente cliente;
+
+  // TODO tipoEndereco
 }

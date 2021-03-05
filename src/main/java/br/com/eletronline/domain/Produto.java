@@ -26,9 +26,17 @@ public class Produto extends Domain implements Serializable {
 
   private BigDecimal valor;
 
-  private EspecificacaoProduto especificacao;
+  private String marca;
+
+  private String modelo;
+
+  private String conteudoEmbalagem;
+
+  private String garantia;
+
+  private String peso;
 
   @ManyToOne
   @JoinColumn(name = "PEDIDO_ID", referencedColumnName = "ID")
-  private Pedido pedido;
+  private Pedido pedido; // TODO corrigir ManyToMany
 }

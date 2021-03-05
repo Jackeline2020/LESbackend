@@ -35,7 +35,7 @@ public class Pedido extends Domain implements Serializable {
 
   private BigDecimal valor;
 
-  @OneToMany(mappedBy = "pedido")
+  @OneToMany(mappedBy = "pedido") // TODO corrigir ManyToMany
   private List<Produto> itens;
 
   private TipoEntrega tipoEntrega;

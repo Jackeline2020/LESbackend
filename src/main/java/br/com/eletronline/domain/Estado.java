@@ -21,7 +21,9 @@ public class Estado extends Domain implements Serializable {
   @Id
   private Long id;
 
-  private String descricao;
+  private String nome;
+
+  private String sigla; // TODO enum
 
   @OneToMany(mappedBy = "estado")
   private List<Cidade> cidades;
