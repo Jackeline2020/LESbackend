@@ -23,6 +23,12 @@ public class Cliente extends Pessoa implements Serializable {
 
   private String nome;
 
+  private String email;
+
+  private String senha;
+
+  private String confirmaSenha;
+
   private TipoCliente tipoCliente;
 
   @OneToMany(mappedBy = "cliente")

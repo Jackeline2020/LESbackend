@@ -21,9 +21,9 @@ public class Cidade extends Domain implements Serializable {
   @Id
   private Long id;
 
-  private String descricao;
+  private String nome;
 
   @ManyToOne
-  @JoinColumn(name = "MOTORISTA_ID", referencedColumnName = "ID")
+  @JoinColumn(name = "ESTADO_ID", referencedColumnName = "ID")
   private Estado estado;
 }

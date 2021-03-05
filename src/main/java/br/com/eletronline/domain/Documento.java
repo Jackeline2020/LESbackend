@@ -20,9 +20,11 @@ public class Documento extends Domain implements Serializable {
   @Id
   private Long id;
 
-  private String codigo;
+  private String numeroDocumento;
 
   private LocalDate validade;
 
   private TipoDocumento tipoDocumento;
+
+  // TODO cliente_id
 }

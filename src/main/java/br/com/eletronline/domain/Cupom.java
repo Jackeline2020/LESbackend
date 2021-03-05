@@ -22,5 +22,5 @@ public class Cupom extends Domain implements Serializable {
 
   private String nome;
 
-  private BigDecimal porcetagemDesconto;
+  private BigDecimal porcentagemDesconto;
 }

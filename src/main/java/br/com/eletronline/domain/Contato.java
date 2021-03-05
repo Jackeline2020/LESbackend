@@ -11,13 +11,17 @@ import javax.persistence.Table;
 @lombok.Setter
 @lombok.Builder
 @Entity
-@Table(name = "TIPO_ENDERECO")
-public class TipoEndereco extends Domain implements Serializable {
+@Table(name = "CONTATO")
+public class Contato extends Domain implements Serializable {
 
-  private static final long serialVersionUID = -4734108418181880764L;
+  private static final long serialVersionUID = 818252785600370296L;
 
   @Id
   private Long id;
 
-  private String tipo; // TODO enum (entrega e cobranca)
+  private String ddd;
+
+  private String numero;
+
+  private Cliente cliente;
 }

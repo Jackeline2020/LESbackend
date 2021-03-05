@@ -21,5 +21,5 @@ public class TipoDocumento extends Domain implements Serializable {
 
   private String descricao;
 
-  private String nome;
+  private String nome; // TODO enum cpf e cnpj
 }
