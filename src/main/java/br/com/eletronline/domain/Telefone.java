@@ -1,6 +1,5 @@
 package br.com.eletronline.domain;
 
-import java.time.LocalDate;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,33 +16,32 @@ import javax.persistence.Table;
 @lombok.Setter
 @lombok.Builder
 @Entity
-@Table(name = "DOCUMENTO")
-public class Documento extends Domain {
+@Table(name = "TELEFONE")
+public class Telefone extends Domain {
 
-  private static final long serialVersionUID = 8293181859869819159L;
+  private static final long serialVersionUID = 818252785600370296L;
 
   @GeneratedValue(
       strategy = GenerationType.SEQUENCE,
-      generator = "SEQ_DOCUMENTO")
+      generator = "SEQ_CONTATO")
   @SequenceGenerator(
-      name = "SEQ_DOCUMENTO", 
-      sequenceName = "SEQ_DOCUMENTO",
+      name = "SEQ_CONTATO", 
+      sequenceName = "SEQ_CONTATO",
       allocationSize = 1)
   @Id
   @Column(name = "ID", length = 8, nullable = false, updatable = false)
   private Long id;
 
-  @Column(name = "NUMERO_DOCUMENTO", length = 30)
-  private String numeroDocumento;
+  @Column(name = "DDD", length = 2)
+  private String ddd;
 
-  @Column(name = "VALIDADE")
-  private LocalDate validade;
+  @Column(name = "NUMERO", length = 9)
+  private String numero;
 
-  @ManyToOne
-  @JoinColumn(name = "TIPO_DOCUMENTO_ID", referencedColumnName = "ID")
-  private TipoDocumento tipoDocumento;
+  @Column(name = "CLIENTE_ID", length = 8, insertable = false, updatable = false)
+  private Long clienteId;
 
   @ManyToOne
   @JoinColumn(name = "CLIENTE_ID", referencedColumnName = "ID")
-  private Pessoa pessoa;
+  private Cliente cliente;
 }

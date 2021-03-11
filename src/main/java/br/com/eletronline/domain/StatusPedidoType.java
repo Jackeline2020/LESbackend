@@ -1,6 +1,6 @@
 package br.com.eletronline.domain;
 
-public enum StatusPedido {
+public enum StatusPedidoType {
   PEDIDO_REALIZADO("PEDIDO REALIZADO"), 
   PAGAMENTO_CONFIRMADO("PAGAMENTO CONFIRMADO"),
   PEDIDO_SEPARACAO("PEDIDO EM SEPARAÇÃO"),
@@ -12,7 +12,7 @@ public enum StatusPedido {
 
   public String statusPedido;
 
-  StatusPedido(final String status) {
+  StatusPedidoType(final String status) {
     statusPedido = status;
   }
 }

@@ -9,17 +9,20 @@ import org.springframework.stereotype.Component;
 import br.com.eletronline.domain.Cliente;
 import br.com.eletronline.domain.Domain;
 import br.com.eletronline.repository.ClienteRepository;
+import br.com.eletronline.util.CriptografarSenha;
 
 @Component
 public class ClienteDAO implements DAO {
 
-  @Autowired
-  private ClienteRepository clienteRepository;
+  @Autowired private ClienteRepository clienteRepository;
+
+  @Autowired private CriptografarSenha criptografarSenha;
 
   @Override
   public String delete(final Domain domain) {
-    // TODO Auto-generated method stub
-    return null;
+    final Cliente cliente = (Cliente) domain;
+    clienteRepository.delete(cliente);
+    return "Cliente excluído com sucesso!";
   }
 
   @Override
@@ -41,7 +44,7 @@ public class ClienteDAO implements DAO {
 
   @Override
   public Cliente findById(final Long id) {
-    final Cliente cliente = clienteRepository.findById(id).orElse(new Cliente());
+    final Cliente cliente = clienteRepository.findById(id).orElse(null);
     return cliente;
   }
 
@@ -50,16 +53,25 @@ public class ClienteDAO implements DAO {
     return clienteRepository.findOne(example);
   }
 
+  public Optional<Cliente> findClienteByEmail(final String email) {
+    final Example<Cliente> example = Example.of(Cliente.builder().email(email).build());
+    return clienteRepository.findOne(example);
+  }
+
   @Override
   public String save(final Domain domain) {
-    // TODO Auto-generated method stub
-    return null;
+    final Cliente cliente = (Cliente) domain;
+    cliente.setSenha(criptografarSenha.criptografar(cliente.getSenha()));
+    clienteRepository.save(cliente);
+    return "Cadastro realizado com sucesso!";
   }
 
   @Override
   public String update(final Domain domain) {
-    // TODO Auto-generated method stub
-    return null;
+    final Cliente cliente = (Cliente) domain;
+    cliente.setSenha(criptografarSenha.criptografar(cliente.getSenha()));
+    clienteRepository.save(cliente);
+    return "Cliente atualizado com sucesso!";
   }
 
   @Override

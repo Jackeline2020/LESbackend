@@ -1,13 +1,13 @@
 package br.com.eletronline.util;
 
-import com.google.common.base.Strings;
+import static com.google.common.base.Strings.isNullOrEmpty;
 import org.springframework.stereotype.Component;
 
 @Component
 public class ValidarCPF {
 
   public String validar(final String cpf) {
-    if (!Strings.isNullOrEmpty(cpf)) {
+    if (!isNullOrEmpty(cpf)) {
       return validarNumerosCpf(getNumeros(cpf));
     }
     return "O campo de CPF não pode estar vazio!";

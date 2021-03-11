@@ -1,5 +1,6 @@
 package br.com.eletronline.facade;
 
+import static com.google.common.base.Strings.isNullOrEmpty;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -11,20 +12,23 @@ import br.com.eletronline.dao.DAO;
 import br.com.eletronline.domain.Cliente;
 import br.com.eletronline.domain.Domain;
 import br.com.eletronline.strategy.Strategy;
-import br.com.eletronline.strategy.ValidarClienteCPF;
+import br.com.eletronline.strategy.ValidarExistenciaClienteCPF;
+import br.com.eletronline.strategy.ValidarExistenciaClienteEmail;
 
 @Component
 public class Fachada {
 
   @Autowired private ClienteDAO clienteDAO;
 
-  @Autowired private ValidarClienteCPF validarClienteCPF;
+  @Autowired private ValidarExistenciaClienteCPF validarExistenciaClienteCPF;
+
+  @Autowired private ValidarExistenciaClienteEmail validarExistenciaClienteEmail;
 
   protected Map<String, DAO> allDao;
 
   protected Map<String, List<Strategy>> allStrategy;
 
-  Fachada() {
+  private void configMaps() {
     allDao = loadDao();
     allStrategy = loadStrategy();
   }
@@ -39,29 +43,33 @@ public class Fachada {
     final Map<String, List<Strategy>> strategys = new HashMap<>();
 
     final List<Strategy> clienteStrategys = new ArrayList<>();
-    clienteStrategys.add(validarClienteCPF);
+    clienteStrategys.add(validarExistenciaClienteCPF);
+    clienteStrategys.add(validarExistenciaClienteEmail);
 
     strategys.put(Cliente.class.getName(), clienteStrategys);
     return strategys;
   }
 
   public String delete(final Domain domain) {
+    configMaps();
     final DAO dao = allDao.get(domain.getClass().getName());
     return dao.delete(domain);
   }
 
   public List<? extends Domain> find(final Domain domain) {
+    configMaps();
     final DAO dao = allDao.get(domain.getClass().getName());
     return dao.find(domain);
   }
 
   public String save(final Domain domain) {
+    configMaps();
     String logErro = null;
     final List<Strategy> strategys = allStrategy.get(domain.getClass().getName());
-    if (strategys != null) {
+    if (strategys.isEmpty()) {
       for (final Strategy strategy : strategys) {
         logErro = strategy.processar(domain);
-        if (logErro != null) {
+        if (isNullOrEmpty(logErro)) {
           return logErro;
         }
       }
@@ -71,7 +79,7 @@ public class Fachada {
   }
 
   public String update(final Domain domain) {
-    final DAO dao = allDao.get(domain.getClass().getName());
-    return dao.update(domain);
+    configMaps();
+    return save(domain);
   }
 }

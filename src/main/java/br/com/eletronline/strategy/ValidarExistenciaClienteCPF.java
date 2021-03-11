@@ -9,7 +9,7 @@ import br.com.eletronline.domain.Domain;
 import br.com.eletronline.util.ValidarCPF;
 
 @Component
-public class ValidarClienteCPF implements Strategy {
+public class ValidarExistenciaClienteCPF implements Strategy {
 
   @Autowired private ClienteDAO clienteDAO;
 
@@ -33,8 +33,11 @@ public class ValidarClienteCPF implements Strategy {
     final Optional<Cliente> clienteCPF = clienteDAO.findClienteByCPF(cliente.getNome());
     if (clienteCPF.isEmpty()) {
       return validarCPF.validar(cliente.getNome());
+    } else if (clienteCPF.get().getId().equals(cliente.getId())) {
+      return validarCPF.validar(cliente.getNome());
+    } else {
+      return "O CPF digitado está indisponível!";
     }
-    return "O CPF digitado está indisponível!";
   }
 
 }
