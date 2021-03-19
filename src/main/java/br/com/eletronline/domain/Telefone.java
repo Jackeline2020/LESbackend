@@ -23,10 +23,10 @@ public class Telefone extends Domain {
 
   @GeneratedValue(
       strategy = GenerationType.SEQUENCE,
-      generator = "SEQ_CONTATO")
+      generator = "SEQ_TELEFONE")
   @SequenceGenerator(
-      name = "SEQ_CONTATO", 
-      sequenceName = "SEQ_CONTATO",
+      name = "SEQ_TELEFONE", 
+      sequenceName = "SEQ_TELEFONE",
       allocationSize = 1)
   @Id
   @Column(name = "ID", length = 8, nullable = false, updatable = false)
@@ -37,9 +37,6 @@ public class Telefone extends Domain {
 
   @Column(name = "NUMERO", length = 9)
   private String numero;
-
-  @Column(name = "CLIENTE_ID", length = 8, insertable = false, updatable = false)
-  private Long clienteId;
 
   @ManyToOne
   @JoinColumn(name = "CLIENTE_ID", referencedColumnName = "ID")

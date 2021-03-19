@@ -22,8 +22,9 @@ import br.com.eletronline.domain.Cliente;
 import br.com.eletronline.domain.Domain;
 import br.com.eletronline.domain.dto.ClienteCadastroDTO;
 import br.com.eletronline.domain.dto.ClienteDTO;
+import br.com.eletronline.domain.dto.ClienteSenhaUpdateDTO;
 import br.com.eletronline.domain.dto.ClienteUpdateDTO;
-import br.com.eletronline.strategy.VerificarTrocaSenha;
+import br.com.eletronline.strategy.PermiteTrocaSenha;
 import br.com.eletronline.util.CompararSenha;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -37,7 +38,7 @@ public class ClienteController {
 
   @Autowired private ModelMapper modelMapper;
 
-  @Autowired private VerificarTrocaSenha verificarTrocaSenha;
+  @Autowired private PermiteTrocaSenha verificarTrocaSenha;
 
   @Autowired private CompararSenha compararSenha;
 
@@ -54,7 +55,8 @@ public class ClienteController {
       value = "Retorna um cliente por id",
       produces = MediaType.APPLICATION_JSON_VALUE)
   public ClienteDTO findById(@PathVariable(name = "clienteId") final Long clienteId) {
-    final Cliente clienteInput = Cliente.builder().id(clienteId).build();
+    final Cliente clienteInput = new Cliente();
+    clienteInput.setId(clienteId);
     final List<? extends Domain> executar = findCommand.executar(clienteInput);
     return modelMapper.map(executar.get(0), ClienteDTO.class);
   }
@@ -100,17 +102,17 @@ public class ClienteController {
     return deleteCommand.executar(cliente);
   }
 
-  @PostMapping("/cliente/{clienteId}/senha/trocar")
+  @PostMapping("/clientes/{clienteId}/senha/permitirTroca")
   @ApiOperation(
-      value = "Verifica se a senha digitada corresponde para permitir a troca",
+      value = "Verifica se a senha digitada corresponde com a atual para permitir a troca",
       produces = MediaType.APPLICATION_JSON_VALUE)
   public String permitirTrocarSenha(
       @PathVariable(name = "clienteId") final Long clienteId,
-      @RequestParam final String senhaNova) {
-    return verificarTrocaSenha.verificarTrocaSenha(senhaNova, clienteId);
+      @RequestParam final String senhaAtual) {
+    return verificarTrocaSenha.permiteTrocaSenha(senhaAtual, clienteId);
   }
 
-  @PostMapping("/cliente/senha/comparar")
+  @PostMapping("/clientes/senha/comparar")
   @ApiOperation(
       value = "Faz a comparação de duas senhas",
       produces = MediaType.APPLICATION_JSON_VALUE)
@@ -118,5 +120,15 @@ public class ClienteController {
       @RequestParam final String senha,
       @RequestParam final String confirmaSenha) {
     return compararSenha.comparar(senha, confirmaSenha);
+  }
+
+  @PostMapping("/clientes/senha/atualizar")
+  @ApiOperation(
+      value = "Atualiza a senha de um cliente por Id",
+      produces = MediaType.APPLICATION_JSON_VALUE)
+  public String atualizarSenha(
+      @RequestBody final ClienteSenhaUpdateDTO clienteSenha) {
+    final Cliente clienteInput = modelMapper.map(clienteSenha, Cliente.class);
+    return updateCommand.executar(clienteInput);
   }
 }

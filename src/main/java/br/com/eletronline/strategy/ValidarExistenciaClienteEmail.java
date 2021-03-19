@@ -10,8 +10,7 @@ import br.com.eletronline.domain.Domain;
 @Component
 public class ValidarExistenciaClienteEmail implements Strategy {
 
-  @Autowired
-  private ClienteDAO clienteDAO;
+  @Autowired private ClienteDAO clienteDAO;
 
   @Override
   public String processar(final Domain domain) {

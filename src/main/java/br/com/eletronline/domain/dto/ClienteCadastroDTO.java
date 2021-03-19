@@ -11,11 +11,13 @@ public class ClienteCadastroDTO implements Serializable {
 
   private static final long serialVersionUID = -6350200354780366086L;
 
+  private Long id;
+
   private String nome;
 
   private String email;
 
   private String senha;
 
-  private Long tipoClienteId;
+  private Long tipoId;
 }

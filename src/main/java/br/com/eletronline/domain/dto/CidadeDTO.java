@@ -11,9 +11,9 @@ public class CidadeDTO implements Serializable {
 
   private static final long serialVersionUID = 6491781613632925377L;
 
-  private Long id;
+  private Long cidadeId;
 
   private String nome;
 
-  private EstadoDTO estado;
+  private Long estadoId;
 }

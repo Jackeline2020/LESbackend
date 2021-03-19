@@ -36,7 +36,7 @@ public class Estado extends Domain {
   private String nome;
 
   @Column(name = "SIGLA", length = 2)
-  private String sigla; // TODO enum
+  private String sigla;
 
   @OneToMany(mappedBy = "estado")
   private List<Cidade> cidades;

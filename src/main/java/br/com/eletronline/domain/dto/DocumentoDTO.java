@@ -14,9 +14,9 @@ public class DocumentoDTO implements Serializable {
 
   private Long id;
 
-  private String numeroDocumento;
+  private String numero;
 
   private LocalDate validade;
 
-  private TipoDocumentoDTO tipoDocumento;
+  private String tipoNome;
 }

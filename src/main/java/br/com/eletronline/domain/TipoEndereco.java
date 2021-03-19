@@ -31,5 +31,5 @@ public class TipoEndereco extends Domain {
   private Long id;
 
   @Column(name = "TIPO", length = 50)
-  private String tipo; // TODO enum (entrega e cobranca)
+  private String tipo; // TODO Enum
 }

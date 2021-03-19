@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -34,16 +35,26 @@ public class Documento extends Domain {
   private Long id;
 
   @Column(name = "NUMERO_DOCUMENTO", length = 30)
-  private String numeroDocumento;
+  private String numero;
 
   @Column(name = "VALIDADE")
   private LocalDate validade;
 
   @ManyToOne
   @JoinColumn(name = "TIPO_DOCUMENTO_ID", referencedColumnName = "ID")
-  private TipoDocumento tipoDocumento;
+  private TipoDocumento tipo;
 
   @ManyToOne
-  @JoinColumn(name = "CLIENTE_ID", referencedColumnName = "ID")
-  private Pessoa pessoa;
+  @JoinTable(
+      name = "CLIENTE_DOCUMENTO",
+      joinColumns = @JoinColumn(name = "DOCUMENTO_ID"),
+      inverseJoinColumns = @JoinColumn(name = "CLIENTE_ID"))
+  private Cliente cliente;
+
+  @ManyToOne
+  @JoinTable(
+      name = "FUNCIONARIO_DOCUMENTO",
+      joinColumns = @JoinColumn(name = "DOCUMENTO_ID"),
+      inverseJoinColumns = @JoinColumn(name = "FUNCIONARIO_ID"))
+  private Funcionario funcionario;
 }

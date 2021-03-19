@@ -18,7 +18,7 @@ public class PedidoDTO implements Serializable {
 
   private static final long serialVersionUID = -672274270142741719L;
 
-  private Long id;
+  private Long pedidoId;
 
   private StatusPedidoType statusPedido;
 
@@ -32,9 +32,9 @@ public class PedidoDTO implements Serializable {
 
   private BigDecimal valorEntrega;
 
-  private CupomDTO cupom;
+  private Long cupomId;
 
   private List<Produto> itens;
 
-  private EnderecoDTO endereco;
+  private Long enderecoId;
 }

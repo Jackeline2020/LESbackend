@@ -38,6 +38,6 @@ public class TipoCliente extends Domain {
   @Column(name = "DESCRICAO", length = 200)
   private String descricao;
 
-  @OneToMany(mappedBy = "tipoCliente")
-  private List<Cliente> clientes;
+  @OneToMany(mappedBy = "tipo")
+  private List<Cliente> cliente;
 }

@@ -17,6 +17,7 @@ import br.com.eletronline.command.DeleteCommand;
 import br.com.eletronline.command.FindCommand;
 import br.com.eletronline.command.SaveCommand;
 import br.com.eletronline.command.UpdateCommand;
+import br.com.eletronline.domain.Cliente;
 import br.com.eletronline.domain.Domain;
 import br.com.eletronline.domain.Endereco;
 import br.com.eletronline.domain.dto.EnderecoDTO;
@@ -51,12 +52,16 @@ public class EnderecoController {
     return modelMapper.map(executar.get(0), EnderecoDTO.class);
   }
 
-  @PostMapping("/enderecos")
+  @PostMapping("/enderecos/clientes/{clienteId}")
   @ApiOperation(
       value = "Realiza a persistencia de um endereco",
       produces = MediaType.APPLICATION_JSON_VALUE)
-  public String save(@RequestBody final EnderecoDTO enderecoDTO) {
+  public String save(
+      @PathVariable(name = "clienteId") final Long clienteId,
+      @RequestBody final EnderecoDTO enderecoDTO) {
     final Endereco enderecoInput = modelMapper.map(enderecoDTO, Endereco.class);
+    final Cliente cliente = Cliente.builder().id(clienteId).build();
+    enderecoInput.setCliente(cliente);
     return saveCommand.executar(enderecoInput);
   }
 
@@ -81,14 +86,15 @@ public class EnderecoController {
     return deleteCommand.executar(endereco);
   }
 
-  @GetMapping("clientes/{cliente}/enderecos")
+  @GetMapping("clientes/{clienteId}/enderecos")
   @ApiOperation(
       value = "Retorna uma lista de endereços de um cliente por id",
       produces = MediaType.APPLICATION_JSON_VALUE)
   public List<EnderecoDTO> findEnderecosByClienteId(
       @PathVariable(name = "clienteId") final Long clienteId) {
-    final Endereco enderecoInput = Endereco.builder().clienteId(clienteId).build();
-    return findCommand.executar(enderecoInput)
+    final Cliente clienteInput = Cliente.builder().id(clienteId).build();
+    final Cliente clienteEncontrado = (Cliente) findCommand.executar(clienteInput).get(0);
+    return clienteEncontrado.getEnderecos()
         .stream().map(endereco -> modelMapper.map(endereco, EnderecoDTO.class))
         .collect(Collectors.toList());
   }

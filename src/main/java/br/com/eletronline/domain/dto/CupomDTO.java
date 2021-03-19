@@ -12,7 +12,7 @@ public class CupomDTO implements Serializable {
 
   private static final long serialVersionUID = 3632133698424058043L;
 
-  private Long id;
+  private Long cupomId;
 
   private String nome;
 

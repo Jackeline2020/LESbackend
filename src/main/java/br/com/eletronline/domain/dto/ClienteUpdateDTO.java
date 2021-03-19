@@ -15,5 +15,5 @@ public class ClienteUpdateDTO extends PessoaDTO implements Serializable {
 
   private String email;
 
-  private String senha;
+  private Long tipoId;
 }

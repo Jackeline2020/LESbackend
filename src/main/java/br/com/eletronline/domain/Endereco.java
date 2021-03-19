@@ -1,7 +1,6 @@
 package br.com.eletronline.domain;
 
 import java.util.List;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -25,8 +24,13 @@ public class Endereco extends Domain {
 
   private static final long serialVersionUID = 569462439003858338L;
 
-  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_ENDERECO")
-  @SequenceGenerator(name = "SEQ_ENDERECO", sequenceName = "SEQ_ENDERECO", allocationSize = 1)
+  @GeneratedValue(
+      strategy = GenerationType.SEQUENCE,
+      generator = "SEQ_ENDERECO")
+  @SequenceGenerator(
+      name = "SEQ_ENDERECO",
+      sequenceName = "SEQ_ENDERECO",
+      allocationSize = 1)
   @Id
   @Column(name = "ID", length = 8, nullable = false, updatable = false)
   private Long id;
@@ -46,14 +50,11 @@ public class Endereco extends Domain {
   @Column(name = "COMPLEMENTO", length = 30)
   private String complemento;
 
-  @Column(name = "CLIENTE_ID", length = 8, insertable = false, updatable = false)
-  private Long clienteId;
-
-  @OneToOne(cascade = CascadeType.ALL)
+  @OneToOne
   @JoinColumn(name = "TIPO_ENDERECO_ID", referencedColumnName = "ID")
-  private TipoEndereco tipoEndereco;
+  private TipoEndereco tipo;
 
-  @OneToOne(cascade = CascadeType.ALL)
+  @OneToOne
   @JoinColumn(name = "CIDADE_ID", referencedColumnName = "ID")
   private Cidade cidade;
 

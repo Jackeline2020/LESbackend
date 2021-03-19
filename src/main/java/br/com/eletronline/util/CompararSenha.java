@@ -11,10 +11,8 @@ public class CompararSenha {
     if (isNullOrEmpty(senha) || isNullOrEmpty(confirmaSenha)) {
       return "O campo de Senha e Confirma Senha não podem estar vazios!";
     }
-    final String senhaCriptografada =
-        DigestUtils.md5Hex(senha).toUpperCase().toString();
-    final String confirmaSenhaCriptografada =
-        DigestUtils.md5Hex(confirmaSenha).toUpperCase().toString();
+    final String senhaCriptografada = DigestUtils.md5Hex(senha).toUpperCase().toString();
+    final String confirmaSenhaCriptografada = DigestUtils.md5Hex(confirmaSenha).toUpperCase().toString();
     if (senhaCriptografada.equals(confirmaSenhaCriptografada)) {
       return null;
     } else {

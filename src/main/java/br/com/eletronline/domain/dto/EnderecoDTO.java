@@ -23,7 +23,9 @@ public class EnderecoDTO implements Serializable {
 
   private String complemento;
 
-  private CidadeDTO cidade;
+  private Long tipoId;
+
+  private Long cidadeId;
 
   private Long clienteId;
 }

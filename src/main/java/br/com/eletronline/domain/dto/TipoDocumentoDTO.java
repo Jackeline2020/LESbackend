@@ -15,5 +15,5 @@ public class TipoDocumentoDTO implements Serializable {
 
   private String descricao;
 
-  private String nome; // TODO enum cpf e cnpj
+  private String nome; // TODO enum
 }

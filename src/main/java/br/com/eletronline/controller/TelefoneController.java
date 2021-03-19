@@ -17,6 +17,7 @@ import br.com.eletronline.command.DeleteCommand;
 import br.com.eletronline.command.FindCommand;
 import br.com.eletronline.command.SaveCommand;
 import br.com.eletronline.command.UpdateCommand;
+import br.com.eletronline.domain.Cliente;
 import br.com.eletronline.domain.Domain;
 import br.com.eletronline.domain.Telefone;
 import br.com.eletronline.domain.dto.TelefoneDTO;
@@ -42,7 +43,7 @@ public class TelefoneController {
 
   @GetMapping("/telefones/{telefoneId}")
   @ApiOperation(
-      value = "Retorna um endereço por id",
+      value = "Retorna um telefone por id",
       produces = MediaType.APPLICATION_JSON_VALUE)
   public TelefoneDTO findTelefoneById(
       @PathVariable(name = "telefoneId") final Long telefoneId) {
@@ -51,12 +52,16 @@ public class TelefoneController {
     return modelMapper.map(executar.get(0), TelefoneDTO.class);
   }
 
-  @PostMapping("/telefones")
+  @PostMapping("/telefones/clientes/{clienteId}")
   @ApiOperation(
       value = "Realiza a persistencia de um telefone",
       produces = MediaType.APPLICATION_JSON_VALUE)
-  public String save(@RequestBody final TelefoneDTO telefoneDTO) {
+  public String save(
+      @PathVariable(name = "clienteId") final Long clienteId,
+      @RequestBody final TelefoneDTO telefoneDTO) {
     final Telefone telefoneInput = modelMapper.map(telefoneDTO, Telefone.class);
+    final Cliente cliente = Cliente.builder().id(clienteId).build();
+    telefoneInput.setCliente(cliente);
     return saveCommand.executar(telefoneInput);
   }
 
@@ -81,14 +86,15 @@ public class TelefoneController {
     return deleteCommand.executar(telefone);
   }
 
-  @GetMapping("clientes/{cliente}/telefones")
+  @GetMapping("clientes/{clienteId}/telefones")
   @ApiOperation(
       value = "Retorna uma lista de telefones de um cliente por id",
       produces = MediaType.APPLICATION_JSON_VALUE)
-  public List<TelefoneDTO> findTelefonesByClienteId(
+  public List<TelefoneDTO> findTelefonesByPessoaId(
       @PathVariable(name = "clienteId") final Long clienteId) {
-    final Telefone telefoneInput = Telefone.builder().clienteId(clienteId).build();
-    return findCommand.executar(telefoneInput)
+    final Cliente clienteInput = Cliente.builder().id(clienteId).build();
+    final Cliente clienteEncontrado = (Cliente) findCommand.executar(clienteInput).get(0);
+    return clienteEncontrado.getTelefones()
         .stream().map(telefone -> modelMapper.map(telefone, TelefoneDTO.class))
         .collect(Collectors.toList());
   }

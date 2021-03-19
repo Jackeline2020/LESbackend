@@ -36,8 +36,8 @@ public class TipoDocumento extends Domain {
   private String descricao;
 
   @Column(name = "NOME", length = 100)
-  private String nome; // TODO enum cpf e cnpj
+  private String nome; // TODO enum
 
-  @OneToMany(mappedBy = "tipoDocumento")
+  @OneToMany(mappedBy = "tipo")
   private List<Documento> documentos;
 }
