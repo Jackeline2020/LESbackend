@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -14,22 +16,29 @@ import javax.persistence.Table;
 @lombok.Setter
 @lombok.Builder
 @Entity
-@Table(name = "TIPO_ENDERECO")
-public class TipoEndereco extends Domain {
+@Table(name = "TELEFONE")
+public class Telefone extends Domain {
 
-  private static final long serialVersionUID = -4734108418181880764L;
+  private static final long serialVersionUID = 818252785600370296L;
 
   @GeneratedValue(
       strategy = GenerationType.SEQUENCE,
-      generator = "SEQ_TIPO_ENDERECO")
+      generator = "SEQ_TELEFONE")
   @SequenceGenerator(
-      name = "SEQ_TIPO_ENDERECO", 
-      sequenceName = "SEQ_TIPO_ENDERECO",
+      name = "SEQ_TELEFONE", 
+      sequenceName = "SEQ_TELEFONE",
       allocationSize = 1)
   @Id
   @Column(name = "ID", length = 8, nullable = false, updatable = false)
   private Long id;
 
-  @Column(name = "TIPO", length = 50)
-  private String tipo; // TODO Enum
+  @Column(name = "DDD", length = 2)
+  private String ddd;
+
+  @Column(name = "NUMERO", length = 9)
+  private String numero;
+
+  @ManyToOne
+  @JoinColumn(name = "CLIENTE_ID", referencedColumnName = "ID")
+  private Cliente cliente;
 }
