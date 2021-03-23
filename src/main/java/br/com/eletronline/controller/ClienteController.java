@@ -22,7 +22,6 @@ import br.com.eletronline.domain.Cliente;
 import br.com.eletronline.domain.Domain;
 import br.com.eletronline.domain.dto.ClienteCadastroDTO;
 import br.com.eletronline.domain.dto.ClienteDTO;
-import br.com.eletronline.domain.dto.ClienteSenhaUpdateDTO;
 import br.com.eletronline.domain.dto.ClienteUpdateDTO;
 import br.com.eletronline.strategy.PermiteTrocaSenha;
 import br.com.eletronline.util.CompararSenha;
@@ -81,15 +80,13 @@ public class ClienteController {
     return saveCommand.executar(clienteInput);
   }
 
-  @PutMapping("/clientes/{clienteId}")
+  @PutMapping("/clientes")
   @ApiOperation(
       value = "Atualiza as informações de um cliente atráves de um id",
       produces = MediaType.APPLICATION_JSON_VALUE)
   public String update(
-      @RequestBody final ClienteUpdateDTO clienteDTO,
-      @PathVariable(name = "clienteId") final Long clienteId) {
+      @RequestBody final ClienteUpdateDTO clienteDTO) {
     final Cliente clienteInput = modelMapper.map(clienteDTO, Cliente.class);
-    clienteInput.setId(clienteId);
     return updateCommand.executar(clienteInput);
   }
 
@@ -120,15 +117,5 @@ public class ClienteController {
       @RequestParam final String senha,
       @RequestParam final String confirmaSenha) {
     return compararSenha.comparar(senha, confirmaSenha);
-  }
-
-  @PostMapping("/clientes/senha/atualizar")
-  @ApiOperation(
-      value = "Atualiza a senha de um cliente por Id",
-      produces = MediaType.APPLICATION_JSON_VALUE)
-  public String atualizarSenha(
-      @RequestBody final ClienteSenhaUpdateDTO clienteSenha) {
-    final Cliente clienteInput = modelMapper.map(clienteSenha, Cliente.class);
-    return updateCommand.executar(clienteInput);
   }
 }

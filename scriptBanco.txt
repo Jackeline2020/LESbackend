@@ -126,7 +126,7 @@ CREATE TABLE FUNCIONARIO(
     ID                          NUMBER(8)                           NOT NULL,
     NOME                        VARCHAR2(100),
     EMAIL                       VARCHAR2(100),
-    SENHA                       VARCHAR2(40),
+    SENHA                       VARCHAR2(60),
     DATA_CADASTRO               DATE,
     CONSTRAINT FUNCIONARIO_ID PRIMARY KEY (ID)
 );
@@ -135,7 +135,7 @@ CREATE TABLE CLIENTE(
     ID                          NUMBER(8)                           NOT NULL,
     NOME                        VARCHAR2(100),
     EMAIL                       VARCHAR2(100),
-    SENHA                       VARCHAR2(40),
+    SENHA                       VARCHAR2(60),
     TIPO_CLIENTE_ID             NUMBER(8),
     DATA_CADASTRO               DATE,
     CONSTRAINT CLIENTE_ID PRIMARY KEY (ID),

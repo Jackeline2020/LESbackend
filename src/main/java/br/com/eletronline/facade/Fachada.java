@@ -25,23 +25,17 @@ import br.com.eletronline.strategy.ValidarExistenciaClienteEmail;
 @Component
 public class Fachada {
 
-  @Autowired
-  private ClienteDAO clienteDAO;
+  @Autowired private ClienteDAO clienteDAO;
 
-  @Autowired
-  private DocumentoDAO documentoDAO;
+  @Autowired private DocumentoDAO documentoDAO;
 
-  @Autowired
-  private EnderecoDAO enderecoDAO;
+  @Autowired private EnderecoDAO enderecoDAO;
 
-  @Autowired
-  private TelefoneDAO telefoneDAO;
+  @Autowired private TelefoneDAO telefoneDAO;
 
-  @Autowired
-  private ValidarExistenciaCPF validarExistenciaCPF;
+  @Autowired private ValidarExistenciaCPF validarExistenciaCPF;
 
-  @Autowired
-  private ValidarExistenciaClienteEmail validarExistenciaClienteEmail;
+  @Autowired private ValidarExistenciaClienteEmail validarExistenciaClienteEmail;
 
   protected Map<String, DAO> allDao;
 
