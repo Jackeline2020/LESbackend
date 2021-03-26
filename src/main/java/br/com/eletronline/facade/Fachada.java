@@ -8,16 +8,18 @@ import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import br.com.eletronline.dao.ClienteDAO;
 import br.com.eletronline.dao.DAO;
+import br.com.eletronline.dao.ClienteDAO;
 import br.com.eletronline.dao.DocumentoDAO;
 import br.com.eletronline.dao.EnderecoDAO;
 import br.com.eletronline.dao.TelefoneDAO;
+import br.com.eletronline.dao.ProdutoDAO;
+import br.com.eletronline.domain.Domain;
 import br.com.eletronline.domain.Cliente;
 import br.com.eletronline.domain.Documento;
-import br.com.eletronline.domain.Domain;
 import br.com.eletronline.domain.Endereco;
 import br.com.eletronline.domain.Telefone;
+import br.com.eletronline.domain.Produto;
 import br.com.eletronline.strategy.Strategy;
 import br.com.eletronline.strategy.ValidarExistenciaCPF;
 import br.com.eletronline.strategy.ValidarExistenciaClienteEmail;
@@ -37,6 +39,9 @@ public class Fachada {
   @Autowired
   private TelefoneDAO telefoneDAO;
 
+  @Autowired
+  private ProdutoDAO produtoDAO;
+  
   @Autowired
   private ValidarExistenciaCPF validarExistenciaCPF;
 
@@ -58,6 +63,7 @@ public class Fachada {
     daos.put(Documento.class.getName(), documentoDAO);
     daos.put(Endereco.class.getName(), enderecoDAO);
     daos.put(Telefone.class.getName(), telefoneDAO);
+    daos.put(Produto.class.getName(), produtoDAO);
     return daos;
   }
 
