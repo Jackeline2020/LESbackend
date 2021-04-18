@@ -11,9 +11,13 @@ public class ClienteUpdateDTO extends PessoaDTO implements Serializable {
 
   private static final long serialVersionUID = 5638885797982867316L;
 
+  private Long id;
+
   private String nome;
 
   private String email;
+
+  private String senha;
 
   private Long tipoId;
 }

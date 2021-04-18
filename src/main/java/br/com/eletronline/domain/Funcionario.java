@@ -13,6 +13,7 @@ import javax.persistence.Table;
 
 @lombok.Getter
 @lombok.Setter
+@lombok.Builder
 @Entity
 @Table(name = "FUNCIONARIO")
 @DiscriminatorValue("FUNCIONARIO")

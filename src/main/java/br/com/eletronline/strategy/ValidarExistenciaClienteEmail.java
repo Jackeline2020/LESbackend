@@ -1,5 +1,7 @@
 package br.com.eletronline.strategy;
 
+import static com.google.common.base.Strings.isNullOrEmpty;
+import static java.util.Objects.nonNull;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -27,13 +29,20 @@ public class ValidarExistenciaClienteEmail implements Strategy {
   }
 
   public String verificarEmail(final Cliente cliente) {
-    final Optional<Cliente> clienteEmail = clienteDAO.findClienteByEmail(cliente.getEmail());
-    if (clienteEmail.isEmpty()) {
-      return null;
-    } else if (clienteEmail.get().getId().equals(cliente.getId())) {
-      return null;
+    if (!isNullOrEmpty(cliente.getEmail())) {
+      final Optional<Cliente> clienteEmail = clienteDAO.findClienteByEmail(cliente.getEmail());
+      if (clienteEmail.isEmpty()) {
+        return null;
+      } else if (clienteEmail.get().getId().equals(cliente.getId())) {
+        return null;
+      } else {
+        return "O Email digitado está indisponível!";
+      }
     } else {
-      return "O Email digitado está indisponível!";
+      if (nonNull(cliente.getId())) {
+        return null;
+      }
+      return "O campo de email não pode estar vazio!";
     }
   }
 
